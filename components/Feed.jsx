@@ -64,7 +64,6 @@ const handleTagClick = (tagName)=>{
   setSearchResult(searchedResult);
 
 }
-console.log(allPosts);
   
   return (
     <section className="feed">
