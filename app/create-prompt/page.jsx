@@ -10,8 +10,9 @@ function CreatePrompt() {
     const { data : session } = useSession();
     const [submitting,setSubmitting]=useState(false);
     const [post,setPost] = useState({
-        prompt:' ',
-        tag: ' ',
+        title:'',
+        prompt:'',
+        tag: '',
     });
 
     const createPrompt = async (e)=>{
@@ -22,6 +23,7 @@ function CreatePrompt() {
             const response = await fetch('/api/prompt/new',{
             method: 'POST',
             body: JSON.stringify({
+                title: post.title,
                 prompt: post.prompt,
                 userId: session?.user.id,
                 tag: post.tag

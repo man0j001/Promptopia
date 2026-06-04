@@ -20,12 +20,13 @@ export const GET = async (request, { params }) => {
 //PATCH
 
 export const PATCH = async ( request, {params})=>{
-    const {prompt , tag} = await request.json();
+    const {title, prompt , tag} = await request.json();
     try {
         await connectToDB()
         const existingPrompts = await Prompt.findById(params.id)
         if (!existingPrompts) return new Response("No Prompt found",{status:500})
-        
+
+        existingPrompts.title = title;
         existingPrompts.prompt = prompt;
         existingPrompts.tag = tag;
 

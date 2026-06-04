@@ -118,12 +118,12 @@
 }
 
 .prompt_layout {
-  @apply space-y-6 py-8 sm:columns-2 sm:gap-6 xl:columns-3;
+  @apply grid w-full grid-cols-1 items-stretch gap-6 py-8 sm:grid-cols-2 lg:grid-cols-3;
 }
 
 /* Feed Component */
 .feed {
-  @apply mt-16 mx-auto w-full max-w-xl flex justify-center items-center flex-col gap-2;
+  @apply mt-16 mx-auto w-full max-w-6xl flex items-center flex-col gap-2;
 }
 
 /* Form Component */
@@ -150,7 +150,19 @@
 
 /* PromptCard Component */
 .prompt_card {
-  @apply flex-1 break-inside-avoid rounded-lg border border-gray-300 bg-white/20 bg-clip-padding p-6 pb-4 backdrop-blur-lg backdrop-filter md:w-[360px] w-full h-fit;
+  @apply flex h-full w-full flex-col rounded-2xl border border-gray-200/80 bg-white/40 bg-clip-padding p-6 backdrop-blur-lg backdrop-filter shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-100/50;
+}
+
+.prompt_title {
+  @apply font-satoshi text-lg font-bold leading-snug line-clamp-2 min-h-[3rem];
+}
+
+.copy_pill {
+  @apply inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gray-300 bg-white/70 px-3 py-1.5 font-inter text-xs font-semibold text-gray-600 transition-all duration-200 hover:border-gray-400 hover:bg-white hover:text-gray-900 active:scale-95;
+}
+
+.copy_pill--done {
+  @apply border-green-300 bg-green-50 text-green-600 hover:border-green-300 hover:bg-green-50 hover:text-green-600;
 }
 
 .flex-center {

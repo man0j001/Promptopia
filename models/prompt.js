@@ -5,6 +5,11 @@ const PromptSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
     },
+    title:{
+        type:String,
+        // Optional so prompts created before this field existed still load/update fine.
+        trim:true,
+    },
     prompt:{
         type:String,
         required:[true,'Prompt is required'],

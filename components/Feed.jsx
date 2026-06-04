@@ -67,7 +67,7 @@ const handleTagClick = (tagName)=>{
   
   return (
     <section className="feed">
-      <form className="realtive w-full flex-center">
+      <form className="relative w-full max-w-xl flex-center">
         <input
         type="text"
         value={searchText}

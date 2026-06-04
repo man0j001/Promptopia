@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+// Register models so .populate("creator") works on any route that connects to the DB.
+// (Without this, routes that only import Prompt throw MissingSchemaError for "User".)
+import "@models/user";
+import "@models/prompt";
 
 let isConneted = false
 export const connectToDB = async ()=>{

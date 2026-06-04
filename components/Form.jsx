@@ -17,6 +17,21 @@ function Form({type ,post ,setPost ,submitting ,handleSubmit}) {
       >
         <label>
           <span className='font-satoshi font-semibold text-base text-gray-700'>
+            Prompt Title
+          </span>
+
+          <input
+            value={post.title}
+            onChange={(e) => setPost({ ...post, title: e.target.value })}
+            type='text'
+            placeholder='Give your prompt a short, catchy title'
+            required
+            className='form_input'
+          />
+        </label>
+
+        <label>
+          <span className='font-satoshi font-semibold text-base text-gray-700'>
             Your AI Prompt
           </span>
 
