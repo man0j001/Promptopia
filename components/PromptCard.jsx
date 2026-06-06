@@ -46,6 +46,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick, noExpand }
             alt='user_image'
             width={40}
             height={40}
+            unoptimized
             className='h-10 w-10 rounded-full object-cover ring-1 ring-ink/5 transition group-hover:ring-ink/20'
           />
 
