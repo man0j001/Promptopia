@@ -16,7 +16,7 @@ function Form({type ,post ,setPost ,submitting ,handleSubmit}) {
         className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
       >
         <label>
-          <span className='font-satoshi font-semibold text-base text-gray-700'>
+          <span className='font-satoshi font-semibold text-base text-ink'>
             Prompt Title
           </span>
 
@@ -31,7 +31,7 @@ function Form({type ,post ,setPost ,submitting ,handleSubmit}) {
         </label>
 
         <label>
-          <span className='font-satoshi font-semibold text-base text-gray-700'>
+          <span className='font-satoshi font-semibold text-base text-ink'>
             Your AI Prompt
           </span>
 
@@ -45,7 +45,7 @@ function Form({type ,post ,setPost ,submitting ,handleSubmit}) {
         </label>
 
         <label>
-          <span className='font-satoshi font-semibold text-base text-gray-700'>
+          <span className='font-satoshi font-semibold text-base text-ink'>
             Field of Prompt{" "}
             <span className='font-normal'>
               (#product, #webdevelopment, #idea, etc.)
@@ -62,14 +62,14 @@ function Form({type ,post ,setPost ,submitting ,handleSubmit}) {
         </label>
 
         <div className='flex-end mx-3 mb-5 gap-4'>
-          <Link href='/' className='text-gray-500 text-sm'>
+          <Link href='/' className='text-graphite text-sm'>
             Cancel
           </Link>
 
           <button
             type='submit'
             disabled={submitting}
-            className='px-5 py-1.5 text-sm bg-blue-600 rounded-full text-white'
+            className='rounded-lg bg-ink px-5 py-2.5 text-sm font-medium tracking-[-0.01em] text-paper transition-colors hover:bg-ink/90 disabled:opacity-60 cursor-pointer'
           >
             {submitting ? `${type}ing...` : type}
           </button>

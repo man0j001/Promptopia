@@ -1,169 +1,192 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* 
-  Note: The styles for this gradient grid background is heavily inspired by the creator of this amazing site (https://dub.sh) – all credits go to them! 
-*/
+/* ============================================================
+   Amplemarket design system — frosted white workspace,
+   sun-stained corner gradient, tight grotesk, ink + violet.
+   ============================================================ */
 
+/* ============================ Theme tokens ============================ */
+:root {
+  --ink: 17 17 17;
+  --paper: 255 255 255;
+  --graphite: 109 108 107;
+  --cream: 244 243 239;
+  --pearl: 236 235 234;
+  --stone: 177 177 175;
+  --violet-deep: 16 5 77;
+}
+
+.dark {
+  --ink: 237 237 235;
+  --paper: 24 24 27;
+  --graphite: 161 161 158;
+  --cream: 39 39 43;
+  --pearl: 52 52 57;
+  --stone: 118 118 122;
+  --violet-deep: 181 140 255;
+}
+
+html {
+  overflow-x: clip;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  font-feature-settings: "ss01" on, "cv11" on;
+  color: rgb(var(--ink));
+  background-color: rgb(var(--paper));
+  overflow-x: clip;
+}
+
+/* Corner-anchored radial atmosphere: sunlight entering from the
+   top-left, bleeding in from off-canvas (warm -> cream -> lavender -> cyan). */
 .main {
   width: 100vw;
   min-height: 100vh;
   position: fixed;
-  display: flex;
-  justify-content: center;
-  padding: 120px 24px 160px 24px;
+  inset: 0;
   pointer-events: none;
-}
-
-.main:before {
-  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa 100%);
-  position: absolute;
-  content: "";
-  z-index: 2;
-  width: 100%;
-  height: 100%;
-  top: 0;
-}
-
-.main:after {
-  content: "";
-  background-image: url("/assets/image/grid.svg");
-  z-index: 1;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  opacity: 0.4;
-  filter: invert(1);
+  z-index: -1;
+  background-color: #ffffff;
+  background-image:
+    radial-gradient(60% 55% at -8% -12%, rgba(232, 64, 13, 0.30) 0%, rgba(232, 64, 13, 0.10) 30%, rgba(255, 255, 255, 0) 62%),
+    radial-gradient(65% 60% at 14% -10%, rgba(255, 239, 153, 0.36) 0%, rgba(255, 255, 255, 0) 58%),
+    radial-gradient(85% 80% at -14% 6%, rgba(226, 221, 253, 0.55) 0%, rgba(226, 221, 253, 0.12) 45%, rgba(255, 255, 255, 0) 66%),
+    radial-gradient(100% 90% at 26% -6%, rgba(183, 239, 242, 0.34) 0%, rgba(255, 255, 255, 0) 62%);
 }
 
 .gradient {
-  height: fit-content;
-  z-index: 3;
-  width: 100%;
-  max-width: 640px;
-  background-image: radial-gradient(
-      at 27% 37%,
-      hsla(215, 98%, 61%, 1) 0px,
-      transparent 0%
-    ),
-    radial-gradient(at 97% 21%, hsla(125, 98%, 72%, 1) 0px, transparent 50%),
-    radial-gradient(at 52% 99%, hsla(354, 98%, 61%, 1) 0px, transparent 50%),
-    radial-gradient(at 10% 29%, hsla(256, 96%, 67%, 1) 0px, transparent 50%),
-    radial-gradient(at 97% 96%, hsla(38, 60%, 74%, 1) 0px, transparent 50%),
-    radial-gradient(at 33% 50%, hsla(222, 67%, 73%, 1) 0px, transparent 50%),
-    radial-gradient(at 79% 53%, hsla(343, 68%, 79%, 1) 0px, transparent 50%);
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  filter: blur(100px) saturate(150%);
-  top: 80px;
-  opacity: 0.15;
+  display: none;
 }
 
 @media screen and (max-width: 640px) {
   .main {
-    padding: 0;
+    background-size: 140% 140%;
   }
 }
 
-/* Tailwind Styles */
-
-.app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+/* Dark-mode page atmosphere (subtle violet/ember glow on a near-black base) */
+.dark .main {
+  background-color: #0a0a0c;
+  background-image:
+    radial-gradient(60% 55% at -8% -12%, rgba(232, 64, 13, 0.10) 0%, rgba(0, 0, 0, 0) 60%),
+    radial-gradient(85% 80% at -14% 6%, rgba(120, 92, 232, 0.18) 0%, rgba(0, 0, 0, 0) 62%),
+    radial-gradient(100% 90% at 26% -6%, rgba(70, 52, 170, 0.14) 0%, rgba(0, 0, 0, 0) 60%);
 }
 
+/* ============================ Layout ============================ */
+
+.app {
+  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6 pt-24;
+}
+
+/* ============================ Buttons ============================ */
+
 .black_btn {
-  @apply rounded-full border border-black bg-black py-1.5 px-5 text-white transition-all hover:bg-white hover:text-black text-center text-sm font-inter flex items-center justify-center;
+  @apply rounded-lg bg-ink py-2.5 px-5 text-paper text-center text-sm font-medium tracking-[-0.01em] transition-colors hover:bg-ink/90 flex items-center justify-center cursor-pointer;
 }
 
 .outline_btn {
-  @apply rounded-full border border-black bg-transparent py-1.5 px-5 text-black transition-all hover:bg-black hover:text-white text-center text-sm font-inter flex items-center justify-center;
+  @apply rounded-lg border border-ink/80 bg-paper py-2.5 px-5 text-ink text-center text-sm font-medium tracking-[-0.01em] transition-colors hover:bg-ink hover:text-paper flex items-center justify-center cursor-pointer;
 }
+
+/* ============================ Headlines ============================ */
 
 .head_text {
-  @apply mt-5 text-5xl font-extrabold leading-[1.15] text-black sm:text-6xl;
-}
-
-.orange_gradient {
-  @apply bg-gradient-to-r from-amber-500 via-orange-600 to-yellow-500 bg-clip-text text-transparent;
-}
-
-.green_gradient {
-  @apply bg-gradient-to-r from-green-400 to-green-500 bg-clip-text text-transparent;
-}
-
-.blue_gradient {
-  @apply bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent;
+  @apply mt-5 text-5xl sm:text-7xl font-semibold leading-[0.95] tracking-[-0.045em] text-ink;
 }
 
 .desc {
-  @apply mt-5 text-lg text-gray-600 sm:text-xl max-w-2xl;
+  @apply mt-5 text-base sm:text-lg text-graphite tracking-[-0.01em] leading-relaxed max-w-2xl;
 }
+
+/* Accent helpers (repurposed from the old gradient classes used in components) */
+.orange_gradient {
+  @apply text-violet-deep;
+}
+
+.blue_gradient {
+  @apply text-ink;
+}
+
+.green_gradient {
+  @apply text-ink;
+}
+
+/* ============================ Search ============================ */
 
 .search_input {
-  @apply block w-full rounded-md border border-gray-200 bg-white py-2.5 font-satoshi pl-5 pr-12 text-sm shadow-lg font-medium focus:border-black focus:outline-none focus:ring-0;
+  @apply block w-full rounded-xl border border-ink/15 bg-paper py-3.5 pl-5 pr-12 text-sm font-medium tracking-[-0.01em] text-ink placeholder:text-graphite placeholder:font-normal focus:border-ink focus:outline-none transition-colors;
+  box-shadow: rgba(17, 17, 17, 0.05) 0px 0px 0px 1px inset;
 }
 
-.copy_btn {
-  @apply w-7 h-7 rounded-full bg-white/10 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur flex justify-center items-center cursor-pointer;
-}
+/* ============================ Forms ============================ */
 
 .glassmorphism {
-  @apply rounded-xl border border-gray-200 bg-white/20 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.2)] backdrop-blur p-5;
+  @apply rounded-2xl border border-ink/10 bg-paper p-6;
+  box-shadow: rgba(17, 17, 17, 0.05) 0px 0px 0px 1px inset;
+}
+
+.form_textarea {
+  @apply w-full flex rounded-xl border border-ink/15 h-[200px] mt-2 p-3 text-sm text-ink placeholder:text-graphite outline-0 focus:border-ink transition-colors;
+}
+
+.form_input {
+  @apply w-full flex rounded-xl border border-ink/15 mt-2 p-3 text-sm text-ink placeholder:text-graphite outline-0 focus:border-ink transition-colors;
+}
+
+/* ============================ Nav ============================ */
+
+.logo_text {
+  @apply max-sm:hidden font-semibold text-lg text-ink tracking-[-0.02em];
+}
+
+.dropdown {
+  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-2xl bg-paper border border-ink/10 min-w-[210px] flex flex-col gap-2 justify-end items-end;
+  box-shadow: rgba(17, 17, 17, 0.12) 0px 26px 60px -6px, rgba(17, 17, 17, 0.04) 0px 6px 6px -3px;
+}
+
+.dropdown_link {
+  @apply text-sm font-medium text-graphite hover:text-ink transition-colors cursor-pointer;
+}
+
+/* ============================ Feed + cards ============================ */
+
+.feed {
+  @apply mt-16 mx-auto w-full max-w-6xl flex items-center flex-col gap-2;
 }
 
 .prompt_layout {
   @apply grid w-full grid-cols-1 items-stretch gap-6 py-8 sm:grid-cols-2 lg:grid-cols-3;
 }
 
-/* Feed Component */
-.feed {
-  @apply mt-16 mx-auto w-full max-w-6xl flex items-center flex-col gap-2;
-}
-
-/* Form Component */
-.form_textarea {
-  @apply w-full flex rounded-lg h-[200px] mt-2 p-3 text-sm text-gray-500 outline-0;
-}
-
-.form_input {
-  @apply w-full flex rounded-lg mt-2 p-3 text-sm text-gray-500 outline-0;
-}
-
-/* Nav Component */
-.logo_text {
-  @apply max-sm:hidden font-satoshi font-semibold text-lg text-black tracking-wide;
-}
-
-.dropdown {
-  @apply absolute right-0 top-full mt-3 w-full p-5 rounded-lg bg-white min-w-[210px] flex flex-col gap-2 justify-end items-end;
-}
-
-.dropdown_link {
-  @apply text-sm font-inter text-gray-700 hover:text-gray-500 font-medium;
-}
-
-/* PromptCard Component */
 .prompt_card {
-  @apply flex h-full w-full flex-col rounded-2xl border border-gray-200/80 bg-white/40 bg-clip-padding p-6 backdrop-blur-lg backdrop-filter shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:shadow-xl hover:shadow-orange-100/50;
+  @apply flex h-full w-full flex-col rounded-xl border border-ink/10 bg-paper p-6 transition-colors duration-200 hover:border-ink/25;
 }
 
 .prompt_title {
-  @apply font-satoshi text-lg font-bold leading-snug line-clamp-2 min-h-[3rem];
+  @apply text-lg font-semibold leading-snug tracking-[-0.02em] line-clamp-2 min-h-[3rem];
 }
 
+/* Tag pill — soft cream chip with ink text */
+.tag_chip {
+  @apply inline-flex items-center rounded-full bg-cream px-3 py-1 text-xs font-medium tracking-[-0.01em] text-ink transition-colors hover:bg-pearl cursor-pointer;
+}
+
+/* Copy action — outlined ink pill that fills on hover / when copied */
 .copy_pill {
-  @apply inline-flex shrink-0 items-center gap-1.5 rounded-full border border-gray-300 bg-white/70 px-3 py-1.5 font-inter text-xs font-semibold text-gray-600 transition-all duration-200 hover:border-gray-400 hover:bg-white hover:text-gray-900 active:scale-95;
+  @apply inline-flex shrink-0 items-center gap-1.5 rounded-full border border-ink/25 bg-paper px-3 py-1.5 font-inter text-xs font-semibold tracking-[-0.01em] text-ink transition-all duration-200 hover:bg-ink hover:text-paper active:scale-95 cursor-pointer;
 }
 
 .copy_pill--done {
-  @apply border-green-300 bg-green-50 text-green-600 hover:border-green-300 hover:bg-green-50 hover:text-green-600;
+  @apply border-ink bg-ink text-paper hover:bg-ink hover:text-paper;
 }
+
+/* ============================ Helpers ============================ */
 
 .flex-center {
   @apply flex justify-center items-center;

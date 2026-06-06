@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
 
-const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
+const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick, noExpand }) => {
   const { data: session } = useSession();
   const pathName = usePathname();
   const router = useRouter();
@@ -17,8 +17,9 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
   const hasTitle = Boolean(post.title && post.title.trim());
   const displayTitle = hasTitle ? post.title : "Untitled Prompt";
 
-  // Only offer "Read more" when the prompt is long enough to be clamped.
-  const isLong = (post.prompt?.length || 0) > 120;
+  // Only offer "Read more" when the prompt is long enough — and never inside the
+  // auto-scroll marquee (noExpand), where a height change would break the loop.
+  const isLong = !noExpand && (post.prompt?.length || 0) > 120;
 
   const handleProfileClick = () => {
     if (post.creator._id === session?.user.id) return router.push("/profile");
@@ -45,16 +46,14 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
             alt='user_image'
             width={40}
             height={40}
-            className='h-10 w-10 rounded-full object-cover ring-2 ring-white/70 shadow-sm transition group-hover:ring-orange-200'
+            className='h-10 w-10 rounded-full object-cover ring-1 ring-ink/5 transition group-hover:ring-ink/20'
           />
 
           <div className='flex flex-col'>
-            <h3 className='font-satoshi font-semibold text-gray-900 leading-tight'>
+            <h3 className='font-semibold leading-tight tracking-[-0.01em] text-ink'>
               {post.creator.username}
             </h3>
-            <p className='font-inter text-xs text-gray-500'>
-              {post.creator.email}
-            </p>
+            <p className='text-xs text-graphite'>{post.creator.email}</p>
           </div>
         </div>
       </div>
@@ -62,7 +61,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
       {/* Title */}
       <h2
         className={`prompt_title mt-4 ${
-          hasTitle ? "text-gray-900" : "italic text-gray-400 font-medium"
+          hasTitle ? "text-ink" : "italic font-medium text-stone"
         }`}
         title={displayTitle}
       >
@@ -71,7 +70,7 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
 
       {/* Prompt body */}
       <p
-        className={`mt-2 font-satoshi text-sm leading-relaxed text-gray-700 ${
+        className={`mt-2 text-sm leading-relaxed text-graphite ${
           expanded ? "" : "line-clamp-3 min-h-[3.9rem]"
         }`}
       >
@@ -82,20 +81,21 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
         <button
           type='button'
           onClick={() => setExpanded((prev) => !prev)}
-          className='mt-1 self-start font-inter text-xs font-semibold blue_gradient cursor-pointer hover:opacity-80'
+          className='mt-1 self-start text-xs font-semibold tracking-[-0.01em] text-ink transition-colors hover:text-violet-deep cursor-pointer'
         >
           {expanded ? "Show less ↑" : "Read more ↓"}
         </button>
       )}
 
       {/* Footer: tag + copy */}
-      <div className='mt-auto flex items-center justify-between gap-3 border-t border-gray-200/70 pt-3'>
-        <p
-          className='font-inter text-sm blue_gradient cursor-pointer truncate'
+      <div className='mt-auto flex items-center justify-between gap-3 border-t border-ink/10 pt-3'>
+        <button
+          type='button'
+          className='tag_chip max-w-[60%] truncate'
           onClick={() => handleTagClick && handleTagClick(post.tag)}
         >
           #{post.tag}
-        </p>
+        </button>
 
         <button
           type='button'
@@ -141,15 +141,15 @@ const PromptCard = ({ post, handleEdit, handleDelete, handleTagClick }) => {
       </div>
 
       {session?.user.id === post.creator._id && pathName === "/profile" && (
-        <div className='mt-4 flex-center gap-4 border-t border-gray-200/70 pt-3'>
+        <div className='mt-4 flex-center gap-4 border-t border-ink/10 pt-3'>
           <p
-            className='font-inter text-sm green_gradient cursor-pointer'
+            className='text-sm font-medium text-ink transition-colors hover:text-graphite cursor-pointer'
             onClick={handleEdit}
           >
             Edit
           </p>
           <p
-            className='font-inter text-sm orange_gradient cursor-pointer'
+            className='text-sm font-medium text-ink transition-colors hover:text-violet-deep cursor-pointer'
             onClick={handleDelete}
           >
             Delete
