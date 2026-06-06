@@ -10,7 +10,7 @@ function page() {
         <Hero
           eyebrow="Curated AI prompts"
           title="Discover & Share AI-Powered Prompts"
-          subtitle="Promptopia is an open-source AI prompting tool for the modern world to discover, create and share creative prompts."
+          subtitle="Promptlyst is an open-source AI prompting tool for the modern world to discover, create and share creative prompts."
           ctaLabel="Explore prompts"
           ctaHref="#prompts"
         />

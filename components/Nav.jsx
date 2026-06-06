@@ -43,7 +43,7 @@ const Nav = () => {
     >
       <Link href="/" className="flex-center">
         <p className="font-semibold text-lg text-ink tracking-[-0.02em]">
-          Promptopia
+          Promptlyst
         </p>
       </Link>
 

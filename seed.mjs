@@ -97,7 +97,7 @@ for (const r of dataRows) {
     const emailLocal = username.toLowerCase().replace(/[^a-z0-9._-]/g, "") || `user${userMap.size}`;
     userMap.set(username, {
       username,
-      email: `${emailLocal}@promptopia.dev`,
+      email: `${emailLocal}@promptlyst.dev`,
       image: avatarFor(username),
     });
   }
